@@ -1,4 +1,6 @@
 # Chef notes
+**chef-client** - uploads policty on your node
+**knife** - enables you to communicate with the Chef server from your workstation.
 
 Apply particular recipe
 ```sh
@@ -21,13 +23,14 @@ Run cookbook
 ```sh
 $ chef-client --local-mode --runlist 'recipe[COOKBOOK_NAME]'
 ```
-
-Download cookbook from supermaket.chef.io
+#Knife
+Use file **./chef/knife.rb** for Knife configuration
+Download cookbook from **supermaket.chef.io**
 ```sh
 $ knife cookbook site download COOKBOOK_NAME_IN_supermarket.chef.io
 ```
 
-Ipload cookbook to Chef server
+Upload cookbook to the Chef server
 ```sh
 $ knife cookbook upload COOKBOOK_NAME
 ```
@@ -65,3 +68,30 @@ $ knife role from file roles/web.json
 
 # Kitchen
 todo
+
+# Vagrant
+Check vagrant version
+```sh
+$ vagrant --version
+```
+Download specific Vagrant box
+```sh
+$ vagrant box add bento/ubuntu-14.04 --provider=virtualbox
+```
+Create configuration file named Vagrantfile
+```sh
+$ vagrant init bento/ubuntu-14.04
+```
+Bring up an instance (create and configure VM instance)
+```sh
+$ vagrant up
+```
+Connect to the instance
+```sh
+vagrant ssh
+```
+
+Cleaning up
+```sh
+$ vagrant destroy --force
+```
