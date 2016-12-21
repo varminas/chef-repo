@@ -55,10 +55,13 @@ knife ssh localhost --ssh-port 2200 'sudo chef-client' --manual-list --ssh-user 
 # Berks
 Upload cookbooks and dependencies to the Chef server
 ```sh
-SSL_CERT_FILE='.chef/trusted_certs/chef-server_test.crt' berks upload
+$ SSL_CERT_FILE='.chef/trusted_certs/chef-server_test.crt' berks upload
 ```
 
 Upload role to Chef server
 ```sh
-knife role from file roles/web.json
+$ knife role from file roles/web.json
 ```
+
+# Kitchen
+todo
