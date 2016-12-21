@@ -1,27 +1,34 @@
 # Chef notes
-**chef-client** - uploads policty on your node
+**chef-apply** - runs a single recipe from the command line
+**chef-client** - uploads policy on your node. Typically downloads and runs the latest Chef code from the Chef server. However, possible to run in the *local mode*
+**kitchen** - enabled to run cookbooks in a temporary environment.
+	Steps: *kitchen create* -> *kitchen converge* -> *kitchen login* -> *verify* -> *kitchen destroy*
 **knife** - enables you to communicate with the Chef server from your workstation.
 
 Apply particular recipe
 ```sh
 $ chef-apply file_name.rp
 ```
-
-Generates new cookbook
+or
 ```sh
-$ chef generate cookbook NAME_OF_THE_COOKBOOK
+$ chef-client --local-mode hello.rb
+```
+
+Create a cookbook
+```sh
+$ chef generate cookbook cookbooks/learn_chef_apache
 ```
 
 Generates new template inside given cookbook
 ```sh
-$ chef generate template COOKBOOK_NAME TEMPLATE_FILE_NAME
+$ chef generate template cookbooks/learn_chef_apache2 index.html
 ```
 
-Write recipe in the file 'COOKBOOK_NAME/recipes/default.rba'
+Write recipe in the file *'COOKBOOK_NAME/recipes/default.rba'*
 
-Run cookbook
+Run the cookbook
 ```sh
-$ chef-client --local-mode --runlist 'recipe[COOKBOOK_NAME]'
+$ sudo chef-client --local-mode --runlist 'recipe[learn_chef_apache2]'
 ```
 #Knife
 Use file **./chef/knife.rb** for Knife configuration
@@ -66,11 +73,41 @@ Upload role to Chef server
 $ knife role from file roles/web.json
 ```
 
-# Kitchen
-todo
+# Test Kitchen
+Command *chef generate cookbook* which creates cookbooks, creates file named **.kitchen.yml**
+provisioner *chef_zero* enables you to mimic a Chef server environment on the local machine
+
+## Create the Test Kitchen instance
+See what's in the kitchen:
+```sh
+$ kitchen list
+```
+Create the instance
+```sh
+$ kitchen create
+```
+## Converge
+```sh
+$ kitchen converge
+```
+Test kitchen runs *chef-client* on the instance. When *chef-client* run completes cuccessfully, Test Kitchen exits with code 0 (to check exit code run *echo $?*)
+## Verify
+Login using ssh
+```sh
+$ kitchen login
+```
+Execute single command
+```sh
+$ kitchen exec -c 'wget -qO- localhost
+```
+## Destroy
+Destroy instance
+```sh
+$ kitchen destroy
+```
 
 # Vagrant
-Check vagrant version
+Check Vagrant version
 ```sh
 $ vagrant --version
 ```
@@ -78,7 +115,7 @@ Download specific Vagrant box
 ```sh
 $ vagrant box add bento/ubuntu-14.04 --provider=virtualbox
 ```
-Create configuration file named Vagrantfile
+Create configuration file named **Vagrantfile**
 ```sh
 $ vagrant init bento/ubuntu-14.04
 ```
