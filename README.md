@@ -1,9 +1,9 @@
 # Chef notes
-**chef-apply** - runs a single recipe from the command line
-**chef-client** - uploads policy on your node. Typically downloads and runs the latest Chef code from the Chef server. However, possible to run in the *local mode*
-**kitchen** - enabled to run cookbooks in a temporary environment.
++ **chef-apply** - runs a single recipe from the command line
++ **chef-client** - uploads policy on your node. Typically downloads and runs the latest Chef code from the Chef server. However, possible to run in the *local mode*
++ **kitchen** - enabled to run cookbooks in a temporary environment.
 	Steps: *kitchen create* -> *kitchen converge* -> *kitchen login* -> *verify* -> *kitchen destroy*
-**knife** - enables you to communicate with the Chef server from your workstation.
++ **knife** - enables you to communicate with the Chef server from your workstation.
 
 Apply particular recipe
 ```sh
