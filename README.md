@@ -4,6 +4,7 @@
 + **kitchen** - enabled to run cookbooks in a temporary environment.
 	Steps: *kitchen create* -> *kitchen converge* -> *kitchen login* -> *verify* -> *kitchen destroy*
 + **knife** - enables you to communicate with the Chef server from your workstation.
++ **berks** - dependency management tool
 
 Apply particular recipe
 ```sh
@@ -13,6 +14,8 @@ or
 ```sh
 $ chef-client --local-mode hello.rb
 ```
+# Cookbooks
+To reference a cookbook from inside another, put it's name into **metadata.rb** file, e.g. put *depends 'apt', '~> 4.0'*, then include it into recipe recipes/default.rb *include_recipe 'apt::default'*
 
 Create a cookbook
 ```sh
@@ -30,6 +33,15 @@ Run the cookbook
 ```sh
 $ sudo chef-client --local-mode --runlist 'recipe[learn_chef_apache2]'
 ```
+Create the recipe
+```sh
+$ chef generate recipe cookbooks/awesome_customers_ubuntu firewall
+```
+Create the custom attributes file
+```sh
+$ chef generate attribute cookbooks/awesome_customers_ubuntu default
+```
+
 #Knife
 Use file **./chef/knife.rb** for Knife configuration
 Download cookbook from **supermaket.chef.io**
@@ -63,6 +75,10 @@ knife ssh localhost --ssh-port 2200 'sudo chef-client' --manual-list --ssh-user 
 ```
 
 # Berks
+Set up a file named **Berksfile.lock** that helps Test Kitchen manage dependent cookbooks
+```sh
+$ berks install
+```
 Upload cookbooks and dependencies to the Chef server
 ```sh
 $ SSL_CERT_FILE='.chef/trusted_certs/chef-server_test.crt' berks upload
