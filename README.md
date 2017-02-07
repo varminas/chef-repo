@@ -56,7 +56,7 @@ $ knife cookbook upload COOKBOOK_NAME
 
 Bootstrap node
 ```sh
-$ knife bootstrap NODE_IP_ADDRESS --ssh-user USER --ssh-password 'PASSWORD' --sudo -use-sudo-password --node-name cnode1 --run-list 'recipe[COOKBOOK_NAME]'
+$ knife bootstrap NODE_IP_ADDRESS --ssh-user USER --ssh-password 'PASSWORD' --sudo -use-sudo-password -N cnode1 --run-list 'recipe[COOKBOOK_NAME]' -E ENVIRONMENT_NAME -V
 ```
 
 Node list (inside folder where is unzipped starter kit)
@@ -72,6 +72,9 @@ $ knife node show NODE_NAME
 Upload cookbook to node
 ```sh
 knife ssh localhost --ssh-port 2200 'sudo chef-client' --manual-list --ssh-user vagrant --identity-file /home/vytautas/learn-chef/chef-server/.vagrant/machines/node1-ubuntu/virtualbox/private_key
+```
+```sh
+knife ssh 'name:NODE_NAME' 'sudo chef-client' --ssh-user root --identity-file ~/.ssh/id_rsa --attribute ipaddress --run-list='cookbook[COOKBOOK_NAME]'
 ```
 
 # Berks
